@@ -1,0 +1,10 @@
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\bin\Debug\Personel_Takip_Sistemi(GPT).exe.config
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\bin\Debug\Personel_Takip_Sistemi(GPT).exe
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\bin\Debug\Personel_Takip_Sistemi(GPT).pdb
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\obj\Debug\Personel_Takip_Sistemi(GPT).csproj.AssemblyReference.cache
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\obj\Debug\Personel_Takip_Sistemi_GPT_.Form1.resources
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\obj\Debug\Personel_Takip_Sistemi_GPT_.Properties.Resources.resources
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\obj\Debug\Personel_Takip_Sistemi(GPT).csproj.GenerateResource.cache
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\obj\Debug\Personel_Takip_Sistemi(GPT).csproj.CoreCompileInputs.cache
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\obj\Debug\Personel_Takip_Sistemi(GPT).exe
+E:\VS Projeler\Personel_Takip_Sistemi(GPT)\Personel_Takip_Sistemi(GPT)\obj\Debug\Personel_Takip_Sistemi(GPT).pdb
