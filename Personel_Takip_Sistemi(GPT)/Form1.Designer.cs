@@ -38,6 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_persEkle = new System.Windows.Forms.Button();
+            this.btn_Guncelle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(867, 712);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // cmb_persDepartman
             // 
@@ -133,17 +135,29 @@
             this.btn_persEkle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_persEkle.Location = new System.Drawing.Point(137, 321);
             this.btn_persEkle.Name = "btn_persEkle";
-            this.btn_persEkle.Size = new System.Drawing.Size(165, 79);
+            this.btn_persEkle.Size = new System.Drawing.Size(202, 79);
             this.btn_persEkle.TabIndex = 9;
             this.btn_persEkle.Text = "EKLE";
             this.btn_persEkle.UseVisualStyleBackColor = true;
             this.btn_persEkle.Click += new System.EventHandler(this.btn_persEkle_Click);
+            // 
+            // btn_Guncelle
+            // 
+            this.btn_Guncelle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Guncelle.Location = new System.Drawing.Point(137, 419);
+            this.btn_Guncelle.Name = "btn_Guncelle";
+            this.btn_Guncelle.Size = new System.Drawing.Size(202, 79);
+            this.btn_Guncelle.TabIndex = 10;
+            this.btn_Guncelle.Text = "GÜNCELLE";
+            this.btn_Guncelle.UseVisualStyleBackColor = true;
+            this.btn_Guncelle.Click += new System.EventHandler(this.btn_Guncelle_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1408, 708);
+            this.Controls.Add(this.btn_Guncelle);
             this.Controls.Add(this.btn_persEkle);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -175,6 +189,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_persEkle;
+        private System.Windows.Forms.Button btn_Guncelle;
     }
 }
 
