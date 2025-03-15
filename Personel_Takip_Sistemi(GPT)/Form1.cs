@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Personel_Takip_Sistemi_GPT_
 {
@@ -28,7 +29,7 @@ namespace Personel_Takip_Sistemi_GPT_
             da.Fill(dt);
             baglan.Close();
             dataGridView1.DataSource = dt;
-            dataGridView1.Columns["ID"].Visible = false;
+            dataGridView1.Columns[0].Visible = false;
         }
         void DepartmanCagir()
         {
@@ -96,6 +97,7 @@ namespace Personel_Takip_Sistemi_GPT_
         private void btn_persEkle_Click(object sender, EventArgs e)
         {
             PersonelEkle();
+            VeriYazdir();
         }
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -122,36 +124,75 @@ namespace Personel_Takip_Sistemi_GPT_
         }
         void PersBilgiGuncelle()
         {
-            baglan.Open();
-            int calisan_ID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["ID"].Value);
-            string cinsiyet = cmb_persCinsiyet.SelectedItem.ToString();
-            byte SQLCinsiyet = 1;
-            switch (cinsiyet)
+            try
             {
-                case "ERKEK":
-                    SQLCinsiyet = 1;
-                    break;
-                case "KADIN":
-                    SQLCinsiyet = 0;
-                    break;
-                default:
-                    MessageBox.Show("HATALI CİNSİYET GİRDİSİ", "UYARI", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-                    break;
+                baglan.Open();
+
+                // Çalışan ID'sini al
+                int calisan_ID;
+                if (!int.TryParse(dataGridView1.SelectedRows[0].Cells["ID"].Value.ToString(), out calisan_ID))
+                {
+                    MessageBox.Show("Çalışan ID geçersiz.", "HATA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Cinsiyet bilgisini al
+                int SQLCinsiyet = -1; // Varsayılan değer
+                if (cmb_persCinsiyet.SelectedItem != null)
+                {
+                    string cinsiyet = cmb_persCinsiyet.SelectedItem.ToString();
+                    SQLCinsiyet = (cinsiyet == "ERKEK") ? 1 : (cinsiyet == "KADIN" ? 0 : -1);
+
+                    if (SQLCinsiyet == -1)
+                    {
+                        MessageBox.Show("HATALI CİNSİYET GİRDİSİ", "UYARI", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                        return; // Hata durumunda fonksiyondan çık
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lütfen bir cinsiyet seçin!", "UYARI", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                    return; // Hata durumunda fonksiyondan çık
+                }
+
+                // Departman ID'sini al
+                int departmanID;
+                if (!int.TryParse(cmb_persDepartman.SelectedValue.ToString(), out departmanID))
+                {
+                    MessageBox.Show("Departman ID geçersiz.", "HATA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // SQL sorgusunu hazırla ve parametreleri ekle
+                SqlCommand persGuncelle = new SqlCommand("UPDATE TBL_EMPLOYEE SET AD=@p1, SOYAD=@p2, DEPARTMAN=@p3, CINSIYET=@p4 WHERE ID=@p5", baglan);
+                persGuncelle.Parameters.AddWithValue("@p1", txt_persAd.Text.ToUpper());
+                persGuncelle.Parameters.AddWithValue("@p2", txt_persSoyad.Text.ToUpper());
+                persGuncelle.Parameters.AddWithValue("@p3", departmanID);
+                persGuncelle.Parameters.AddWithValue("@p4", SQLCinsiyet);
+                persGuncelle.Parameters.AddWithValue("@p5", calisan_ID);
+
+                // Sorguyu çalıştır
+                persGuncelle.ExecuteNonQuery();
+
+                MessageBox.Show("PERSONEL BAŞARIYLA GÜNCELLENDİ", "BİLGİLENDİRME", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            SqlCommand persGuncelle = new SqlCommand("UPDATE TBL_EMPLOYEE SET AD=@p1, SOYAD=@p2, DEPARTMAN=@p3, CINSIYET=@p4 WHERE ID=@p5", baglan);
-            persGuncelle.Parameters.AddWithValue("@p1", txt_persAd.Text.ToUpper());
-            persGuncelle.Parameters.AddWithValue("@p2", txt_persSoyad.Text.ToUpper());
-            persGuncelle.Parameters.AddWithValue("@p3", cmb_persDepartman.SelectedItem);
-            persGuncelle.Parameters.AddWithValue("@p4", SQLCinsiyet);
-            persGuncelle.Parameters.AddWithValue("@p5", calisan_ID);
-            persGuncelle.ExecuteNonQuery();
-            baglan.Close();
-            MessageBox.Show("PERSONEL BAŞARIYLA GÜNCELLENDİ", "BİLGİLENDİRME", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            catch (Exception ex)
+            {
+                MessageBox.Show("HATA OLUŞTU: " + ex.Message, "HATA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (baglan.State == ConnectionState.Open)
+                {
+                    baglan.Close();
+                }
+            }
         }
 
         private void btn_Guncelle_Click(object sender, EventArgs e)
         {
             PersBilgiGuncelle();
+            VeriYazdir();
         }
     }
 }
